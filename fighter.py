@@ -34,7 +34,7 @@ class Fighter():
             animation_list.append(temp_img_list)
         return animation_list
         
-    def move(self,screen_width,screen_height,surface,target):
+    def move(self,screen_width,screen_height,surface,target,round_over):
         SPEED=10
         GRAVITY=2
         dx=0
@@ -45,7 +45,7 @@ class Fighter():
         #get key press
         key=pygame.key.get_pressed()
         #can only perfrom other stuff if not attacking
-        if self.attacking==False and self.alive==True:
+        if self.attacking==False and self.alive==True and round_over==False:
             #check player 1 controls
             if self.player==1:
             #movment
@@ -61,7 +61,7 @@ class Fighter():
                     self.jump=True
                 #attacking keys    
                 if key[pygame.K_r] or key[pygame.K_t]:
-                    self.attack(surface,target)
+                    self.attack(target)
                     
                     #determin the type of attack
                     if key[pygame.K_r]:
@@ -84,7 +84,7 @@ class Fighter():
                     self.jump=True
                 #attacking keys    
                 if key[pygame.K_m] or key[pygame.K_n]:
-                    self.attack(surface,target)
+                    self.attack(target)
                     
                     #determin the type of attack
                     if key[pygame.K_m]:
@@ -172,7 +172,7 @@ class Fighter():
                     self.attack_cool_down=20
                 
 
-    def attack(self,surface,traget):
+    def attack(self,traget):
         if self.attack_cool_down==0:
         
             self.attacking=True
@@ -182,12 +182,12 @@ class Fighter():
                 
                 traget.health-=10;
                 traget.hit=True
-                pygame.draw.rect(surface,(0,255,0),attacking_rect)      
+                #pygame.draw.rect(surface,(0,255,0),attacking_rect)      
         
         
     def draw(self, surface):
         img=pygame.transform.flip(self.image,self.flip,False)
-        pygame.draw.rect(surface,(255,0,0),self.rect)
+        #pygame.draw.rect(surface,(255,0,0),self.rect)
         surface.blit(img,(self.rect.x-(self.offset[0]*self.image_scale),self.rect.y-(self.offset[1]*self.image_scale)))
     
     def update_action(self,new_action):

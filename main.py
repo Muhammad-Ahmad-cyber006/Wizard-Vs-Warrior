@@ -12,7 +12,7 @@ White=(255,255,255)
 Green=(0,255,0)
 #define game var
 
-intro_count=3
+intro_count=0
 last_count_update=pygame.time.get_ticks()
 score=[0,0]# player sorces [player1 and player2]
 round_over =False
@@ -80,6 +80,8 @@ while run:
     clock.tick(FPS)
     #draw bg
     draw_bg()
+    draw_text("P1: "+str(score[0]),score_font,White,20,60)
+    draw_text("P2: "+str(score[1]),score_font,White,580,60)
     
     #show health bar
     draw_health_bar(fighter_1.health,20,20)
@@ -88,8 +90,8 @@ while run:
     if intro_count<=0:
     
         #move fighter
-        fighter_1.move(SCREEN_WIDTH,SCREEN_HEIGHT,screen,fighter_2)
-        fighter_2.move(SCREEN_WIDTH,SCREEN_HEIGHT,screen,fighter_1)
+        fighter_1.move(SCREEN_WIDTH,SCREEN_HEIGHT,screen,fighter_2,round_over)
+        fighter_2.move(SCREEN_WIDTH,SCREEN_HEIGHT,screen,fighter_1,round_over)
     else:
         #display timer
         draw_text(str(intro_count),count_fount,Red,SCREEN_WIDTH/2,SCREEN_HEIGHT/3)
@@ -108,12 +110,12 @@ while run:
     #check for player defeat
     if round_over==False:
         if fighter_1.alive==False:
-            score[0]+=1 #player 2 scores
+            score[1]+=1 #player 2 scores
             round_over=True
             round_over_time=pygame.time.get_ticks()
             #print(score)
         elif fighter_2.alive==False:
-            score[1]+=1 #player 1 scores
+            score[0]+=1 #player 1 scores
             round_over=True
             round_over_time=pygame.time.get_ticks() 
     else:

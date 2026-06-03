@@ -45,7 +45,7 @@ class Fighter():
         #get key press
         key=pygame.key.get_pressed()
         #can only perfrom other stuff if not attacking
-        if self.attacking==False:
+        if self.attacking==False and self.alive==True:
             #check player 1 controls
             if self.player==1:
             #movment

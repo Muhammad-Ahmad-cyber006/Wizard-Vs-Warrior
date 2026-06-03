@@ -10,6 +10,9 @@ Yellow=(255,255,0)
 Red=(255,0,0)
 White=(255,255,255)
 Green=(0,255,0)
+#define game var
+intro_count=3
+last_count_update=pygame.time.get_ticks()
 #define fighter var
 WARRIOR_SIZE=162
 WARRIOR_SCALE=4
@@ -64,10 +67,17 @@ while run:
     #show health bar
     draw_health_bar(fighter_1.health,20,20)
     draw_health_bar(fighter_2.health,580,20)
+    #update intro count
+    if intro_count<=0:
     
-    #move fighter
-    fighter_1.move(SCREEN_WIDTH,SCREEN_HEIGHT,screen,fighter_2)
-    fighter_2.move(SCREEN_WIDTH,SCREEN_HEIGHT,screen,fighter_1)
+        #move fighter
+        fighter_1.move(SCREEN_WIDTH,SCREEN_HEIGHT,screen,fighter_2)
+        fighter_2.move(SCREEN_WIDTH,SCREEN_HEIGHT,screen,fighter_1)
+    else:
+        if pygame.time.get_ticks()-last_count_update>=1000:
+            intro_count-=1
+            last_count_update=pygame.time.get_ticks()
+            
     #update fighter
     fighter_1.update()
     fighter_2.update()   

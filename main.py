@@ -1,5 +1,7 @@
 import pygame
 from fighter import Fighter
+from pygame import mixer
+mixer.init()
 pygame.init()
 
 #create the game window
@@ -35,14 +37,22 @@ pygame.display.set_caption("Wizard Vs Warrior")
 #set framerate
 clock=pygame.time.Clock()
 FPS=60
+#load music and sounds
+pygame.mixer.music.load("music_and_sound/music.flac")
+pygame.mixer.music.set_volume(0.7)
+pygame.mixer.music.play(-1,0.0,5000)
 
+sword_fx=pygame.mixer.Sound("music_and_sound/sword_attack.wav")
+sword_fx.set_volume(0.7)
+magic_fx=pygame.mixer.Sound("music_and_sound/magic.wav")
+magic_fx.set_volume(0.7)
 #load bg
 bg_iamge=pygame.image.load("images/background/background.jpg").convert_alpha()
 #load spriteSheets
 warrior_sheet=pygame.image.load("images/warrior/warrior.png").convert_alpha()
 wizard_sheet=pygame.image.load("images/wizard/wizard.png").convert_alpha()
 #loading victory img
-victory_img=pygame.image.load("victory.png")
+victory_img=pygame.image.load("victory.png").convert_alpha()
 
 
 #number of steps in each animation
@@ -71,8 +81,8 @@ def draw_health_bar(health,x,y):
     pygame.draw.rect(screen,Green,(x,y,400*ratio,30))
 
 #create instances of fighters
-fighter_1=Fighter(1,100,340,False,WARRIOR_DATA,warrior_sheet,WARRIOR_ANIMATION)
-fighter_2=Fighter(2,800,340,True,WIZARD_DATA,wizard_sheet,WIZARD_ANIMATION)
+fighter_1=Fighter(1,100,340,False,WARRIOR_DATA,warrior_sheet,WARRIOR_ANIMATION,sword_fx)
+fighter_2=Fighter(2,800,340,True,WIZARD_DATA,wizard_sheet,WIZARD_ANIMATION,magic_fx)
 
 #game loop 
 run = True
@@ -124,8 +134,8 @@ while run:
         if pygame.time.get_ticks() -round_over_time>ROUND_OVER_COOL_DOWN:
             round_over=False
             intro_count=3
-            fighter_1=Fighter(1,100,340,False,WARRIOR_DATA,warrior_sheet,WARRIOR_ANIMATION)
-            fighter_2=Fighter(2,800,340,True,WIZARD_DATA,wizard_sheet,WIZARD_ANIMATION)
+            fighter_1=Fighter(1,100,340,False,WARRIOR_DATA,warrior_sheet,WARRIOR_ANIMATION,sword_fx)
+            fighter_2=Fighter(2,800,340,True,WIZARD_DATA,wizard_sheet,WIZARD_ANIMATION,magic_fx)
                
     
     

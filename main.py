@@ -60,7 +60,7 @@ WARRIOR_ANIMATION=[10,8,1,7,7,3,7]
 WIZARD_ANIMATION=[8,8,1,8,8,3,7]
 #loading font
 count_fount=pygame.font.Font("Turok.ttf",80)
-score_font=pygame.font.Font("Reign Beats.otf",30)
+score_font=pygame.font.Font("Turok.ttf",30)
 
 #function for darwing text
 def draw_text(text,font,text_colour,x,y):
@@ -90,8 +90,8 @@ while run:
     clock.tick(FPS)
     #draw bg
     draw_bg()
-    draw_text("P1: "+str(score[0]),score_font,White,20,60)
-    draw_text("P2: "+str(score[1]),score_font,White,580,60)
+    draw_text("P1: "+str(score[0]),score_font,Red,20,60)
+    draw_text("P2: "+str(score[1]),score_font,Red,580,60)
     
     #show health bar
     draw_health_bar(fighter_1.health,20,20)

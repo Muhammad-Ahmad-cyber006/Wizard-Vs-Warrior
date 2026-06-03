@@ -40,9 +40,18 @@ wizard_sheet=pygame.image.load("images/wizard/wizard.png").convert_alpha()
 #number of steps in each animation
 WARRIOR_ANIMATION=[10,8,1,7,7,3,7]
 WIZARD_ANIMATION=[8,8,1,8,8,3,7]
+#loading font
+count_fount=pygame.font.Font("Turok.ttf",80)
+score_font=pygame.font.Font("Reign Beats.otf",30)
+
+#function for darwing text
+def draw_text(text,font,text_colour,x,y):
+    img=font.render(text,True,text_colour)
+    screen.blit(img,(x,y))
 
 #function for background
 def draw_bg():
+    
     scaled_bg = pygame.transform.scale(bg_iamge,(SCREEN_WIDTH, SCREEN_HEIGHT))
     screen.blit(scaled_bg,(0,0))
     
@@ -74,9 +83,12 @@ while run:
         fighter_1.move(SCREEN_WIDTH,SCREEN_HEIGHT,screen,fighter_2)
         fighter_2.move(SCREEN_WIDTH,SCREEN_HEIGHT,screen,fighter_1)
     else:
+        #display timer
+        draw_text(str(intro_count),count_fount,Red,SCREEN_WIDTH/2,SCREEN_HEIGHT/3)
         if pygame.time.get_ticks()-last_count_update>=1000:
             intro_count-=1
             last_count_update=pygame.time.get_ticks()
+            
             
     #update fighter
     fighter_1.update()

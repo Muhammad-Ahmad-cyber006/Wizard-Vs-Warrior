@@ -11,8 +11,14 @@ Red=(255,0,0)
 White=(255,255,255)
 Green=(0,255,0)
 #define game var
+
 intro_count=3
 last_count_update=pygame.time.get_ticks()
+score=[0,0]# player sorces [player1 and player2]
+round_over =False
+ROUND_OVER_COOL_DOWN=2000 #2sec
+
+
 #define fighter var
 WARRIOR_SIZE=162
 WARRIOR_SCALE=4
@@ -35,6 +41,8 @@ bg_iamge=pygame.image.load("images/background/background.jpg").convert_alpha()
 #load spriteSheets
 warrior_sheet=pygame.image.load("images/warrior/warrior.png").convert_alpha()
 wizard_sheet=pygame.image.load("images/wizard/wizard.png").convert_alpha()
+#loading victory img
+victory_img=pygame.image.load("victory.png")
 
 
 #number of steps in each animation
@@ -97,6 +105,26 @@ while run:
     fighter_1.draw(screen)
     fighter_2.draw(screen)
     
+    #check for player defeat
+    if round_over==False:
+        if fighter_1.alive==False:
+            score[0]+=1 #player 2 scores
+            round_over=True
+            round_over_time=pygame.time.get_ticks()
+            #print(score)
+        elif fighter_2.alive==False:
+            score[1]+=1 #player 1 scores
+            round_over=True
+            round_over_time=pygame.time.get_ticks() 
+    else:
+        #display victory img
+        screen.blit(victory_img,(360,150))
+        if pygame.time.get_ticks() -round_over_time>ROUND_OVER_COOL_DOWN:
+            round_over=False
+            intro_count=3
+            fighter_1=Fighter(1,100,340,False,WARRIOR_DATA,warrior_sheet,WARRIOR_ANIMATION)
+            fighter_2=Fighter(2,800,340,True,WIZARD_DATA,wizard_sheet,WIZARD_ANIMATION)
+               
     
     
     #event handler
